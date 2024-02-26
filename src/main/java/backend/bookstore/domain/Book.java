@@ -1,15 +1,32 @@
 package backend.bookstore.domain;
 
-public class Model {
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
-    Long id;
-    String title;
-    String author;
-    int publicationYear;
-    String isbn;
-    Double price;
+@Entity
+public class Book {
+    @Id
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+    private String title;
+    private String author;
+    private int publicationYear;
+    private String isbn;
+    private Double price;
 
-    
+    public Book(){
+        
+    }
+   
+    public Book(String title, String author, int publicationYear, String isbn, Double price) {
+        this.title = title;
+        this.author = author;
+        this.publicationYear = publicationYear;
+        this.isbn = isbn;
+        this.price = price;
+    }
     public Long getId() {
         return id;
     }
