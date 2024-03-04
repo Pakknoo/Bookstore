@@ -7,16 +7,19 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import backend.bookstore.domain.Book;
-import backend.bookstore.domain.BookstoreRepository;
-
+import backend.bookstore.domain.BookRepository;
+import backend.bookstore.domain.CategoryRepository;
 
 @Controller
 public class BookController {
     @Autowired
-    private BookstoreRepository repository;
+    private BookRepository repository;
+    @Autowired
+    private CategoryRepository crepositery;
+
     @RequestMapping(value="/booklist", method=RequestMethod.GET)
     public String BookList(Model model){
-        model.addAttribute("books", repository.findAll());
+        model.addAttribute("booksss", repository.findAll());
         return "booklist";
     }
 
@@ -28,6 +31,7 @@ public class BookController {
     @RequestMapping(value = "/add", method=RequestMethod.GET)
     public String addBook(Model model){
         model.addAttribute("book", new Book());
+        model.addAttribute("categories",crepositery.findAll());
         return "addbook";
     }
     @RequestMapping(value = "/save", method = RequestMethod.POST)

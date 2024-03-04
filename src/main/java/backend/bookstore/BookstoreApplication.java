@@ -5,7 +5,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
-import backend.bookstore.domain.BookstoreRepository;
+import backend.bookstore.domain.BookRepository;
+import backend.bookstore.domain.Category;
+import backend.bookstore.domain.CategoryRepository;
 import backend.bookstore.domain.Book;
 
 @SpringBootApplication
@@ -15,13 +17,21 @@ public class BookstoreApplication {
 		SpringApplication.run(BookstoreApplication.class, args);
 	}
 	@Bean
-	public CommandLineRunner demo(BookstoreRepository repository){
+	public CommandLineRunner demo(BookRepository repository, CategoryRepository categoryRepository){
 		return (args)->{
-			Book b1 = new Book("A Farewell to Arms", "Ernest Hemingway", 1929, "1232323-21", 25.90);
-			Book b2 = new Book("Animal Farm", "George Orwell", 1945, "2212343", 26.90);
-			repository.save(b1);
-			repository.save(b2);
+			Category category1 = new Category("kaunokirjallisuus");
+			Category category2 = new Category("tietokirjallisuus");
+			categoryRepository.save(category1);
+			categoryRepository.save(category2);
+
+			Book book1 = new Book("36 Uurnaa", "Sirpa Kähkönen", 2023, "9789523881860", 35.90, category1);
+			Book book2 = new Book("Hävitys", "Iida Rauma", 2022, "2212343", 26.90, category1);
+			Book book3 = new Book("Hands-on Full Stack Development with Spring Boot and React", "Juha Hinkula", 2022, "9781801816786", 42.30, category2);
+			repository.save(book1);
+			repository.save(book2);	
+			repository.save(book3);	
 		};
 	}
+	
 
 }
